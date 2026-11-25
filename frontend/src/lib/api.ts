@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: typeof window !== 'undefined' ? '' : (process.env.INTERNAL_BACKEND_URL || 'http://backend:8000'),
   timeout: 60000,
 });
 

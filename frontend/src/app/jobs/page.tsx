@@ -87,58 +87,66 @@ export default function JobsPage() {
       )}
 
       {!loading && jobs.length > 0 && (
-        <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-750">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-900 text-gray-400 text-left">
-                <th className="px-4 py-3">Job ID</th>
-                <th className="px-4 py-3">Source Video</th>
-                <th className="px-4 py-3">Stage</th>
-                <th className="px-4 py-3">Progress</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Created</th>
-                <th className="px-4 py-3">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {jobs.map((j) => (
-                <tr key={j.id} className="border-t border-gray-700/60 hover:bg-gray-750 transition-colors">
-                  <td className="px-4 py-3 font-mono text-xs text-gray-400">{j.id.slice(0, 8)}...</td>
-                  <td className="px-4 py-3 text-white font-medium">{j.sourceVideo?.title ?? j.sourceVideoId.slice(0, 8)}</td>
-                  <td className="px-4 py-3 text-gray-300">{j.currentStage || 'Processing'}</td>
-                  <td className="px-4 py-3 w-44">
-                    <div className="flex items-center gap-2">
-                      <div className="w-full bg-gray-700 rounded-full h-2">
-                        <div
-                          className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${Math.min(100, Math.max(0, j.progress))}%` }}
-                        />
-                      </div>
-                      <span className="text-xs text-gray-400 font-mono">{j.progress}%</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${STATUS_COLORS[j.status] ?? 'bg-gray-700 text-gray-300'}`}>
-                      {j.status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">
-                    {formatDistanceToNow(new Date(j.createdAt), { addSuffix: true })}
-                  </td>
-                  <td className="px-4 py-3">
-                    {!['READY', 'PUBLISHED', 'FAILED', 'CANCELLED'].includes(j.status) && (
-                      <button
-                        onClick={() => handleCancel(j.id)}
-                        className="text-xs text-red-400 hover:text-red-300 hover:underline"
-                      >
-                        Cancel
-                      </button>
-                    )}
-                  </td>
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-gray-950/70 border-b border-gray-800 text-gray-400 text-xs uppercase tracking-wider">
+                  <th className="px-5 py-3.5">Job ID</th>
+                  <th className="px-5 py-3.5">Source Video</th>
+                  <th className="px-5 py-3.5">Stage</th>
+                  <th className="px-5 py-3.5">Progress</th>
+                  <th className="px-5 py-3.5">Status</th>
+                  <th className="px-5 py-3.5">Created</th>
+                  <th className="px-5 py-3.5">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-800/80">
+                {jobs.map((j) => (
+                  <tr key={j.id} className="hover:bg-gray-800/40 transition-colors">
+                    <td className="px-5 py-3.5 font-mono text-xs text-gray-400">{j.id.slice(0, 8)}...</td>
+                    <td className="px-5 py-3.5 text-white font-medium max-w-xs truncate">{j.sourceVideo?.title ?? j.sourceVideoId.slice(0, 8)}</td>
+                    <td className="px-5 py-3.5 text-gray-300 text-xs">{j.currentStage || 'Processing'}</td>
+                    <td className="px-5 py-3.5 w-44">
+                      <div className="flex items-center gap-2">
+                        <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className={`h-full transition-all duration-300 ${
+                              j.status === 'READY'
+                                ? 'bg-emerald-500'
+                                : j.status === 'FAILED'
+                                ? 'bg-red-500'
+                                : 'bg-blue-500'
+                            }`}
+                            style={{ width: `${Math.min(100, Math.max(0, j.progress))}%` }}
+                          />
+                        </div>
+                        <span className="text-xs text-gray-400 font-mono">{j.progress}%</span>
+                      </div>
+                    </td>
+                    <td className="px-5 py-3.5">
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider ${STATUS_COLORS[j.status] ?? 'bg-gray-800 text-gray-300'}`}>
+                        {j.status}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3.5 text-gray-400 text-xs">
+                      {formatDistanceToNow(new Date(j.createdAt), { addSuffix: true })}
+                    </td>
+                    <td className="px-5 py-3.5">
+                      {!['READY', 'PUBLISHED', 'FAILED', 'CANCELLED'].includes(j.status) && (
+                        <button
+                          onClick={() => handleCancel(j.id)}
+                          className="text-xs text-red-400 hover:text-red-300 hover:underline"
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

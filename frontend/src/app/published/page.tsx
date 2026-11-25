@@ -57,44 +57,47 @@ export default function PublishedPage() {
       )}
 
       {!loading && videos.length > 0 && (
-        <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-750">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-900 text-gray-400 text-left">
-                <th className="px-4 py-3">Title</th>
-                <th className="px-4 py-3">Channel</th>
-                <th className="px-4 py-3">Published</th>
-                <th className="px-4 py-3">Views</th>
-                <th className="px-4 py-3">Likes</th>
-                <th className="px-4 py-3">Comments</th>
-                <th className="px-4 py-3">Link</th>
-              </tr>
-            </thead>
-            <tbody>
-              {videos.map((v) => (
-                <tr key={v.id} className="border-t border-gray-700/60 hover:bg-gray-750">
-                  <td className="px-4 py-3 text-white font-medium">{v.title}</td>
-                  <td className="px-4 py-3 text-gray-300">{v.youtubeAccount?.channelTitle || 'YouTube'}</td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">
-                    {formatDistanceToNow(new Date(v.publishedAt), { addSuffix: true })}
-                  </td>
-                  <td className="px-4 py-3 text-white font-mono">{v.views.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-white font-mono">{v.likes.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-white font-mono">{v.comments.toLocaleString()}</td>
-                  <td className="px-4 py-3">
-                    <a
-                      href={v.youtubeUrl || `https://youtube.com/shorts/${v.youtubeVideoId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-400 hover:text-blue-300 text-xs underline"
-                    >
-                      View on YouTube ↗
-                    </a>
-                  </td>
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-gray-950/70 border-b border-gray-800 text-gray-400 text-xs uppercase tracking-wider">
+                  <th className="px-5 py-3.5">Title</th>
+                  <th className="px-5 py-3.5">Channel</th>
+                  <th className="px-5 py-3.5">Published</th>
+                  <th className="px-5 py-3.5">Views</th>
+                  <th className="px-5 py-3.5">Likes</th>
+                  <th className="px-5 py-3.5">Comments</th>
+                  <th className="px-5 py-3.5 text-right">Link</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-800/80">
+                {videos.map((v) => (
+                  <tr key={v.id} className="hover:bg-gray-800/40 transition-colors">
+                    <td className="px-5 py-3.5 text-white font-medium max-w-xs truncate">{v.title}</td>
+                    <td className="px-5 py-3.5 text-gray-300 text-xs">{v.youtubeAccount?.channelTitle || 'YouTube'}</td>
+                    <td className="px-5 py-3.5 text-gray-400 text-xs">
+                      {formatDistanceToNow(new Date(v.publishedAt), { addSuffix: true })}
+                    </td>
+                    <td className="px-5 py-3.5 text-white font-mono text-xs">{v.views.toLocaleString()}</td>
+                    <td className="px-5 py-3.5 text-white font-mono text-xs">{v.likes.toLocaleString()}</td>
+                    <td className="px-5 py-3.5 text-white font-mono text-xs">{v.comments.toLocaleString()}</td>
+                    <td className="px-5 py-3.5 text-right">
+                      <a
+                        href={v.youtubeUrl || `https://youtube.com/shorts/${v.youtubeVideoId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:text-blue-300 text-xs inline-flex items-center gap-1 bg-gray-800/80 hover:bg-gray-700/80 px-2.5 py-1 rounded-lg border border-gray-700/50 transition-colors"
+                      >
+                        <span>Watch</span>
+                        <span>↗</span>
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

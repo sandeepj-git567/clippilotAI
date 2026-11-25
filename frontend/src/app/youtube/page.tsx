@@ -61,7 +61,7 @@ export default function YouTubePage() {
           <p className="text-gray-400 mt-1">Manage connected channels for automated Shorts publishing</p>
         </div>
         <a
-          href="http://localhost:8000/api/youtube/connect"
+          href="/api/youtube/connect"
           className="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 shadow-lg"
         >
           <span>▶️</span> Connect YouTube Channel
@@ -79,7 +79,7 @@ export default function YouTubePage() {
             Connect your YouTube channel using Google OAuth 2.0 to automatically publish generated Shorts.
           </p>
           <a
-            href="http://localhost:8000/api/youtube/connect"
+            href="/api/youtube/connect"
             className="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold inline-flex items-center gap-2"
           >
             <span>▶️</span> Connect with Google

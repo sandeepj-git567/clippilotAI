@@ -53,33 +53,35 @@ export default function PublishingPage() {
       )}
 
       {!loading && queue.length > 0 && (
-        <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-750">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-900 text-gray-400 text-left">
-                <th className="px-4 py-3">Clip</th>
-                <th className="px-4 py-3">Channel</th>
-                <th className="px-4 py-3">Scheduled Time</th>
-                <th className="px-4 py-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {queue.map((item) => (
-                <tr key={item.id} className="border-t border-gray-700/60 hover:bg-gray-750">
-                  <td className="px-4 py-3 text-white font-medium">{item.clip?.title || item.clipId}</td>
-                  <td className="px-4 py-3 text-gray-300">{item.youtubeAccount?.channelTitle || 'YouTube'}</td>
-                  <td className="px-4 py-3 text-gray-300">
-                    {new Date(item.scheduledTime).toLocaleString()} ({formatDistanceToNow(new Date(item.scheduledTime), { addSuffix: true })})
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="px-2 py-1 bg-yellow-900 text-yellow-200 rounded text-xs">
-                      {item.status}
-                    </span>
-                  </td>
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-gray-950/70 border-b border-gray-800 text-gray-400 text-xs uppercase tracking-wider">
+                  <th className="px-5 py-3.5">Clip</th>
+                  <th className="px-5 py-3.5">Channel</th>
+                  <th className="px-5 py-3.5">Scheduled Time</th>
+                  <th className="px-5 py-3.5 text-right">Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-800/80">
+                {queue.map((item) => (
+                  <tr key={item.id} className="hover:bg-gray-800/40 transition-colors">
+                    <td className="px-5 py-3.5 text-white font-medium max-w-xs truncate">{item.clip?.title || item.clipId}</td>
+                    <td className="px-5 py-3.5 text-gray-300 text-xs">{item.youtubeAccount?.channelTitle || 'YouTube'}</td>
+                    <td className="px-5 py-3.5 text-gray-400 text-xs font-mono">
+                      {new Date(item.scheduledTime).toLocaleString()} ({formatDistanceToNow(new Date(item.scheduledTime), { addSuffix: true })})
+                    </td>
+                    <td className="px-5 py-3.5 text-right">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-yellow-900/40 text-yellow-300 border border-yellow-700/50">
+                        {item.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

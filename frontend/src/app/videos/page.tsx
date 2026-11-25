@@ -76,44 +76,48 @@ export default function VideosPage() {
       )}
 
       {!loading && videos.length > 0 && (
-        <div className="bg-gray-800 rounded-xl overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-900 text-gray-400 text-left">
-                <th className="px-4 py-3">Title</th>
-                <th className="px-4 py-3">Duration</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Format</th>
-                <th className="px-4 py-3">Clips</th>
-                <th className="px-4 py-3">Submitted</th>
-                <th className="px-4 py-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {videos.map((v) => (
-                <tr key={v.id} className="border-t border-gray-700 hover:bg-gray-750">
-                  <td className="px-4 py-3 text-white font-medium">{v.title}</td>
-                  <td className="px-4 py-3 text-gray-400">{fmtDuration(v.durationSeconds)}</td>
-                  <td className="px-4 py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${STATUS_COLORS[v.status] ?? 'bg-gray-700 text-gray-300'}`}>{v.status}</span>
-                  </td>
-                  <td className="px-4 py-3 text-gray-400">{v.editingFormat ?? '—'}</td>
-                  <td className="px-4 py-3 text-gray-400">{v.clipCount ?? 0}</td>
-                  <td className="px-4 py-3 text-gray-400">{formatDistanceToNow(new Date(v.createdAt), { addSuffix: true })}</td>
-                  <td className="px-4 py-3 flex gap-2">
-                    <Link href={`/videos/${v.id}`} className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded">View</Link>
-                    <button
-                      onClick={() => handleDelete(v.id)}
-                      disabled={deleting === v.id}
-                      className="text-xs bg-red-800 hover:bg-red-700 text-white px-3 py-1 rounded disabled:opacity-50"
-                    >
-                      {deleting === v.id ? '...' : 'Delete'}
-                    </button>
-                  </td>
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-gray-950/70 border-b border-gray-800 text-gray-400 text-xs uppercase tracking-wider">
+                  <th className="px-5 py-3.5">Title</th>
+                  <th className="px-5 py-3.5">Duration</th>
+                  <th className="px-5 py-3.5">Status</th>
+                  <th className="px-5 py-3.5">Format</th>
+                  <th className="px-5 py-3.5">Clips</th>
+                  <th className="px-5 py-3.5">Submitted</th>
+                  <th className="px-5 py-3.5 text-right">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-800/80">
+                {videos.map((v) => (
+                  <tr key={v.id} className="hover:bg-gray-800/40 transition-colors">
+                    <td className="px-5 py-3.5 text-white font-medium max-w-xs truncate">{v.title}</td>
+                    <td className="px-5 py-3.5 text-gray-400 font-mono text-xs">{fmtDuration(v.durationSeconds)}</td>
+                    <td className="px-5 py-3.5">
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider ${STATUS_COLORS[v.status] ?? 'bg-gray-800 text-gray-300'}`}>{v.status}</span>
+                    </td>
+                    <td className="px-5 py-3.5 text-gray-300 text-xs">{v.editingFormat ?? '—'}</td>
+                    <td className="px-5 py-3.5 text-gray-300 text-xs font-medium">{v.clipCount ?? 0}</td>
+                    <td className="px-5 py-3.5 text-gray-400 text-xs">{formatDistanceToNow(new Date(v.createdAt), { addSuffix: true })}</td>
+                    <td className="px-5 py-3.5 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <Link href={`/videos/${v.id}`} className="text-xs bg-gray-800 hover:bg-gray-700 text-white px-3 py-1.5 rounded-lg border border-gray-700/60 transition-colors">View</Link>
+                        <button
+                          onClick={() => handleDelete(v.id)}
+                          disabled={deleting === v.id}
+                          className="text-xs bg-red-900/40 hover:bg-red-800 text-red-300 border border-red-700/50 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
+                        >
+                          {deleting === v.id ? '...' : 'Delete'}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

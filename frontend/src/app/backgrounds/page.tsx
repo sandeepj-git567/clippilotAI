@@ -352,7 +352,7 @@ export default function BackgroundsPage() {
                 {/* THUMBNAIL / PREVIEW COVER */}
                 <div className="relative aspect-video bg-black group overflow-hidden">
                   <img
-                    src={`http://localhost:8000${item.thumbnailUrl}`}
+                    src={item.thumbnailUrl}
                     alt={item.title}
                     className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
                     onError={(e) => {
@@ -493,13 +493,13 @@ export default function BackgroundsPage() {
             <div className="relative aspect-video bg-black flex items-center justify-center">
               {previewMedia.filePath.match(/\.(jpg|jpeg|png|webp)$/i) ? (
                 <img
-                  src={`http://localhost:8000${previewMedia.previewUrl}`}
+                  src={previewMedia.previewUrl}
                   alt={previewMedia.title}
                   className="w-full h-full object-contain"
                 />
               ) : (
                 <video
-                  src={`http://localhost:8000${previewMedia.previewUrl}`}
+                  src={previewMedia.previewUrl}
                   controls
                   autoPlay
                   loop={previewMedia.isLoopable}

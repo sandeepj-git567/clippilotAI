@@ -192,8 +192,8 @@ export default function ClipsPage() {
       {!loading && clips.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {clips.map((clip) => {
-            const previewUrl = `http://localhost:8000/api/clips/${clip.id}/preview`;
-            const thumbUrl = `http://localhost:8000/api/clips/${clip.id}/thumbnail`;
+            const previewUrl = `/api/clips/${clip.id}/preview`;
+            const thumbUrl = `/api/clips/${clip.id}/thumbnail`;
 
             return (
               <div key={clip.id} className="bg-gray-800 rounded-xl overflow-hidden border border-gray-750 flex flex-col shadow-lg">
@@ -289,7 +289,7 @@ export default function ClipsPage() {
                   controls
                   autoPlay
                   playsInline
-                  src={`http://localhost:8000/api/clips/${previewClip.id}/preview`}
+                  src={`/api/clips/${previewClip.id}/preview`}
                   className="w-full h-full object-contain"
                 />
               </div>

@@ -88,31 +88,31 @@ export default function VideoDetailPage() {
   const progressPct = latestJob?.progress || (video.status === 'READY' ? 100 : 0);
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
         <div>
-          <Link href="/videos" className="text-sm text-blue-400 hover:underline mb-2 block">
+          <Link href="/videos" className="text-xs text-blue-400 hover:underline mb-1.5 block">
             ← Back to Source Library
           </Link>
-          <h2 className="text-2xl font-bold text-white">{video.title}</h2>
-          <p className="text-gray-400 text-sm mt-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">{video.title}</h2>
+          <p className="text-gray-400 text-xs mt-1">
             Submitted {formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={handleReanalyze}
             disabled={reanalyzing}
-            className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm font-medium"
+            className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white px-3.5 py-2 rounded-xl text-xs font-medium shadow-sm transition-colors"
           >
             {reanalyzing ? 'Starting...' : '⚡ Process Video'}
           </button>
-          <Link href="/clips" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+          <Link href="/clips" className="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 rounded-xl text-xs font-medium shadow-sm transition-colors">
             View Clips ({video.clips?.length || 0})
           </Link>
           <button
             onClick={handleDelete}
-            className="bg-red-800 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm"
+            className="bg-red-900/60 hover:bg-red-800 text-red-200 border border-red-700/60 px-3.5 py-2 rounded-xl text-xs font-medium transition-colors"
           >
             Delete
           </button>

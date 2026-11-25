@@ -15,7 +15,14 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    return [{ source: '/api/:path*', destination: 'http://localhost:8000/api/:path*' }];
+    return [
+      {
+        source: '/api/:path*',
+        destination: process.env.INTERNAL_BACKEND_URL
+          ? `${process.env.INTERNAL_BACKEND_URL}/api/:path*`
+          : 'http://backend:8000/api/:path*',
+      },
+    ];
   },
 };
 module.exports = nextConfig;
